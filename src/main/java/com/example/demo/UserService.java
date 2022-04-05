@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -77,15 +78,15 @@ class UserStore {
     }
 }
 
-@Component
+@ConfigurationProperties(prefix = "app")
 class UserConfig {
     private int maxUsers;
 
-    public UserConfig(int maxUsers) {
-        this.maxUsers = maxUsers;
-    }
-
     public int getMaxUsers() {
         return maxUsers;
+    }
+
+    public void setMaxUsers(int maxUsers) {
+        this.maxUsers = maxUsers;
     }
 }

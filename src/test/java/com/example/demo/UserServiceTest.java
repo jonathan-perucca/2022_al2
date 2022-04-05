@@ -17,7 +17,8 @@ class UserServiceTest {
     @BeforeEach
     void setup() {
         userStore = new UserStore(new HashMap<>());
-        userConfig = new UserConfig(2);
+        userConfig = new UserConfig();
+        userConfig.setMaxUsers(2);
 
         userService = new UserService(userStore, userConfig);
     }
