@@ -11,12 +11,12 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class UserServiceTest {
 
     UserService userService;
-    UserStore userStore;
+    InMemoryUserStore userStore;
     UserConfig userConfig;
 
     @BeforeEach
     void setup() {
-        userStore = new UserStore(new HashMap<>());
+        userStore = new InMemoryUserStore(new HashMap<>());
         userConfig = new UserConfig();
         userConfig.setMaxUsers(2);
 

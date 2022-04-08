@@ -3,38 +3,40 @@ package com.example.demo;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Component
 public class UserService {
-    private final UserStore userStore;
+    private final UserRepository userRepository;
     private final UserConfig userConfig;
 
-    public UserService(UserStore userStore, UserConfig userConfig) {
-        this.userStore = userStore;
+    public UserService(UserRepository userRepository, UserConfig userConfig) {
+        this.userRepository = userRepository;
         this.userConfig = userConfig;
     }
 
     public User add(String username) {
-        if (userStore.count() + 1 > userConfig.getMaxUsers()) {
+        if (userRepository.count() + 1 > userConfig.getMaxUsers()) {
             throw new IllegalStateException("Cannot add more users");
         }
 
         var user = new User().setId(UUID.randomUUID().toString()).setName(username);
-        userStore.save(user);
+        userRepository.save(user);
 
         return user;
     }
 
     public List<User> getAll() {
-        return userStore.findAll();
+        return userRepository.findAll();
     }
 }
 
+@Entity
 class User {
+    @Id
     private String id;
     private String name;
 
@@ -54,27 +56,6 @@ class User {
     public User setName(String name) {
         this.name = name;
         return this;
-    }
-}
-
-@Component
-class UserStore {
-    private final Map<String, User> db;
-
-    UserStore(Map<String, User> db) {
-        this.db = db;
-    }
-
-    public void save(User user) {
-        db.put(user.getId(), user);
-    }
-
-    public int count() {
-        return db.size();
-    }
-
-    public List<User> findAll() {
-        return new ArrayList<>(db.values());
     }
 }
 
