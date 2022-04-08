@@ -8,7 +8,6 @@ import org.springframework.hateoas.config.EnableHypermediaSupport;
 import static org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType.HTTP_PROBLEM_DETAILS;
 
 @SpringBootApplication
-@EnableHypermediaSupport(type = HTTP_PROBLEM_DETAILS)
 @ConfigurationPropertiesScan
 public class Application {
 

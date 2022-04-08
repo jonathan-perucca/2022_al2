@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.infra.web.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

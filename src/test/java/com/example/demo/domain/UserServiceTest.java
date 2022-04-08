@@ -1,5 +1,10 @@
-package com.example.demo;
+package com.example.demo.domain;
 
+import com.example.demo.domain.UserRepository;
+import com.example.demo.domain.UserService;
+import com.example.demo.infra.config.SpringUserConfig;
+import com.example.demo.infra.event.NoOpEventService;
+import com.example.demo.infra.repository.memory.InMemoryUserStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,16 +16,16 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class UserServiceTest {
 
     UserService userService;
-    InMemoryUserStore userStore;
-    UserConfig userConfig;
+    UserRepository userStore;
+    SpringUserConfig userConfig;
 
     @BeforeEach
     void setup() {
         userStore = new InMemoryUserStore(new HashMap<>());
-        userConfig = new UserConfig();
+        userConfig = new SpringUserConfig();
         userConfig.setMaxUsers(2);
 
-        userService = new UserService(userStore, userConfig);
+        userService = new UserService(userStore, userConfig, new NoOpEventService());
     }
 
     @Test

@@ -1,6 +1,9 @@
-package com.example.demo;
+package com.example.demo.infra.web;
 
-import org.springframework.hateoas.RepresentationModel;
+import com.example.demo.domain.User;
+import com.example.demo.domain.UserService;
+import com.example.demo.infra.web.request.CreateUserRequest;
+import com.example.demo.infra.web.response.UserResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,27 +75,3 @@ public class UserApi {
     }
 }
 
-class CreateUserRequest {
-    private String username;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-}
-
-class UserResource extends RepresentationModel<UserResource> {
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public UserResource setName(String name) {
-        this.name = name;
-        return this;
-    }
-}
